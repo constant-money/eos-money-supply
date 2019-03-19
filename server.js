@@ -13,12 +13,37 @@ const api = new Api({
   textDecoder: new TextDecoder(),
   textEncoder: new TextEncoder(),
 });
-
 const PORT = 3000;
 const app = express();
 app.get('/', async (req, res) => {
   try {
-    const resp = await rpc.get_account('tatsukakalot');
+    // const resp = await rpc.get_account('tatsukakalot');
+    const resp = await api.transact(
+      {
+        actions: [
+          {
+            account: 'trongdthdapp',
+            name: 'transfer',
+            authorization: [
+              {
+                actor: 'trongdthdapp',
+                permission: 'active',
+              },
+            ],
+            data: {
+              from: 'trongdthdapp',
+              to: 'tatsukakalot',
+              quantity: '1 CONST',
+              memo: '',
+            },
+          },
+        ],
+      },
+      {
+        blocksBehind: 3,
+        expireSeconds: 30,
+      },
+    );
     res.send(resp);
   } catch (e) {
     console.log('\nCaught exception: ' + e);
