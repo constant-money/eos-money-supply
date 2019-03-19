@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import fetch from 'node-fetch';
 import { Api, JsonRpc, RpcError } from 'eosjs';
-import JsSignatureProvider from 'eosjs/dist/eosjs-jssig'; // development only
+import JsSignatureProvider from 'eosjs/dist/eosjs-jssig';
 import { TextEncoder, TextDecoder } from 'util';
 
 const signatureProvider = new JsSignatureProvider([process.env.PRIVATE_KEY]);
