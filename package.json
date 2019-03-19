@@ -1,0 +1,15 @@
+{
+  "name": "eos-money-supply",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/constant-money/eos-money-supply.git",
+  "author": "0xTatsu <nghia@autonomous.nyc>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "eosjs": "^20.0.0-beta3",
+    "express": "^4.16.4"
+  }
+}
