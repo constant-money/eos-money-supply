@@ -1,0 +1,23 @@
+{
+  "name": "eos-money-supply",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/constant-money/eos-money-supply.git",
+  "author": "0xTatsu <nghia@autonomous.nyc>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js --exec babel-node"
+  },
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "eosjs": "^20.0.0-beta3",
+    "express": "^4.16.4",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4"
+  }
+}
