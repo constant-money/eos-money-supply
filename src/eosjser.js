@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { Api, JsonRpc, RpcError } from 'eosjs';
+import { Api, JsonRpc } from 'eosjs';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
 import { TextEncoder, TextDecoder } from 'util';
 
@@ -13,55 +13,48 @@ export default function Eosjser({ private_key, node_address, account, actor }) {
     textDecoder: new TextDecoder(),
     textEncoder: new TextEncoder(),
   });
-  this.account = account;
-  this.actor = actor;
   this.transaction = ({ action, data }) => {
-    try {
-      return api.transact(
-        {
-          actions: [
-            {
-              account: this.account,
-              name: action,
-              authorization: [
-                {
-                  actor: this.actor,
-                  permission: 'active',
-                },
-              ],
-              data,
-            },
-          ],
-        },
-        {
-          blocksBehind: 3,
-          expireSeconds: 30,
-        },
-      );
-    } catch (e) {
-      console.log(`\nCaught exception in ${action}: ` + e);
-      if (e instanceof RpcError) return e.json;
-    }
+    return api.transact(
+      {
+        actions: [
+          {
+            account: account,
+            name: action,
+            authorization: [
+              {
+                actor: actor,
+                permission: 'active',
+              },
+            ],
+            data,
+          },
+        ],
+      },
+      {
+        blocksBehind: 3,
+        expireSeconds: 30,
+      },
+    );
   };
 }
 
-Eosjser.prototype.transfer = function(from, to, quantity) {
+Eosjser.prototype.transfer = function({ from, to, quantity, memo = '' }) {
   return this.transaction({
-    data: { from, to, quantity },
+    data: { from, to, quantity, memo },
     action: 'transfer',
   });
 };
 
-Eosjser.prototype.purchase = function(to, quantity) {
+Eosjser.prototype.purchase = function({ to, quantity, memo }) {
   return this.transaction({
-    data: { to, quantity },
+    data: { to, quantity, memo },
     action: 'purchase',
   });
 };
 
-Eosjser.prototype.redeem = function(from, quantity) {
+Eosjser.prototype.redeem = function({ from, quantity, memo }) {
   return this.transaction({
-    data: { from, quantity },
+    data: { from, quantity, memo },
     action: 'redeem',
   });
 };
