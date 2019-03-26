@@ -45,14 +45,14 @@ Eosjser.prototype.transfer = function({ from, to, quantity, memo = '' }) {
   });
 };
 
-Eosjser.prototype.purchase = function({ to, quantity, memo }) {
+Eosjser.prototype.purchase = function({ to, quantity, memo = '' }) {
   return this.transaction({
     data: { to, quantity, memo },
     action: 'purchase',
   });
 };
 
-Eosjser.prototype.redeem = function({ from, quantity, memo }) {
+Eosjser.prototype.redeem = function({ from, quantity, memo = '' }) {
   return this.transaction({
     data: { from, quantity, memo },
     action: 'redeem',
